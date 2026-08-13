@@ -3,212 +3,164 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<title>Photobooth Studio - Ultimate</title>
+<title>photobooth_studio Pro Max</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-  /* ================= CSS VARIABLES & THEMES ================= */
-  :root {
-    --transition-speed: 0.4s;
+  :root{
+    --cream:      #FFF8F1;
+    --blush:      #FF9EB5;
+    --blush-hover:#fc86a1;
+    --sage:       #A8CBB7;
+    --plum:       #4A3550;
+    --gold:       #E8B95C;
+    --gold-hover: #dca337;
+
+    --white: #ffffff;
+    --plum-soft: rgba(74,53,80,0.65);
+    --shadow: 0 12px 36px rgba(74,53,80,0.15);
+    --shadow-sm: 0 4px 12px rgba(74,53,80,0.08);
+    --radius-lg: 26px;
+    --radius-md: 16px;
+    --radius-sm: 10px;
   }
 
-  /* 1. Theme Cyberpunk (Ngầu / Dark Mode) - Mặc định */
-  :root[data-theme="cyberpunk"] {
-    --bg-color: #0b0c10;
-    --bg-gradient: radial-gradient(circle at 10% 20%, rgba(0, 255, 204, 0.1), transparent 40%), radial-gradient(circle at 90% 80%, rgba(255, 0, 128, 0.15), transparent 45%), #0b0c10;
-    --panel-bg: rgba(20, 22, 30, 0.7);
-    --panel-border: rgba(0, 255, 204, 0.3);
-    --text-main: #ffffff;
-    --text-muted: #8b9bb4;
-    --primary: #00ffcc;
-    --primary-hover: #00d6ab;
-    --primary-text: #000000;
-    --secondary: #ff007f;
-    --secondary-hover: #d6006b;
-    --secondary-text: #ffffff;
-    --border-soft: rgba(0, 255, 204, 0.2);
-    --shadow-glow: 0 0 20px rgba(0, 255, 204, 0.2);
-    --step-bg: rgba(0, 255, 204, 0.1);
-  }
-
-  /* 2. Theme Lofi (Dễ thương / Pastel) */
-  :root[data-theme="lofi"] {
-    --bg-color: #FFF8F1;
-    --bg-gradient: radial-gradient(circle at 8% 12%, rgba(255,158,181,0.18), transparent 40%), radial-gradient(circle at 92% 85%, rgba(168,203,183,0.25), transparent 45%), #FFF8F1;
-    --panel-bg: rgba(255, 255, 255, 0.9);
-    --panel-border: rgba(255, 255, 255, 0.5);
-    --text-main: #4A3550;
-    --text-muted: rgba(74,53,80,0.65);
-    --primary: #FF9EB5;
-    --primary-hover: #fc86a1;
-    --primary-text: #ffffff;
-    --secondary: #A8CBB7;
-    --secondary-hover: #96bba6;
-    --secondary-text: #ffffff;
-    --border-soft: rgba(74,53,80,0.15);
-    --shadow-glow: 0 12px 36px rgba(74,53,80,0.15);
-    --step-bg: rgba(255,255,255,0.6);
-  }
-
-  /* 3. Theme Minimal (Tối giản / B&W) */
-  :root[data-theme="minimal"] {
-    --bg-color: #f4f4f4;
-    --bg-gradient: linear-gradient(135deg, #fdfdfd 0%, #eeeeee 100%);
-    --panel-bg: #ffffff;
-    --panel-border: #dddddd;
-    --text-main: #111111;
-    --text-muted: #666666;
-    --primary: #111111;
-    --primary-hover: #333333;
-    --primary-text: #ffffff;
-    --secondary: #eeeeee;
-    --secondary-hover: #dddddd;
-    --secondary-text: #111111;
-    --border-soft: #cccccc;
-    --shadow-glow: 0 10px 30px rgba(0,0,0,0.05);
-    --step-bg: #f9f9f9;
-  }
-
-  /* ================= BASE STYLES ================= */
-  *{ box-sizing:border-box; transition: background-color var(--transition-speed), color var(--transition-speed), border-color var(--transition-speed), box-shadow var(--transition-speed); }
+  *{ box-sizing:border-box; }
   html,body{ margin:0; padding:0; }
 
   body{
-    background: var(--bg-gradient);
-    background-color: var(--bg-color);
+    background:
+      radial-gradient(circle at 8% 12%, rgba(255,158,181,0.18), transparent 40%),
+      radial-gradient(circle at 92% 85%, rgba(168,203,183,0.25), transparent 45%),
+      var(--cream);
     min-height:100vh;
     font-family:'Nunito', sans-serif;
-    color: var(--text-main);
+    color: var(--plum);
     -webkit-font-smoothing:antialiased;
   }
 
   h1,h2,h3, .display{ font-family:'Baloo 2', cursive; }
   button{ font-family:'Nunito', sans-serif; }
 
-  /* ================= TOP TOOLBAR ================= */
-  .top-toolbar {
-    position: fixed; top: 16px; right: 20px; z-index: 100;
-    display: flex; gap: 12px;
-    background: var(--panel-bg); backdrop-filter: blur(10px);
-    padding: 8px 16px; border-radius: 999px; border: 1px solid var(--border-soft);
-    box-shadow: var(--shadow-glow);
-  }
-  .toolbar-btn {
-    background: transparent; border: none; font-size: 1.1rem; cursor: pointer; padding: 4px 8px; border-radius: 6px; color: var(--text-main); font-weight: 800;
-  }
-  .toolbar-btn:hover { background: var(--border-soft); }
-  .toolbar-divider { width: 1px; background: var(--border-soft); margin: 0 4px; }
-  
-  select.theme-select {
-    background: transparent; border: none; color: var(--text-main); font-family: 'Nunito', sans-serif; font-weight: 700; outline: none; cursor: pointer;
-  }
-  select.theme-select option { color: #000; }
-
   /* ================= LAYOUT ================= */
-  .app{ max-width: 1000px; margin: 0 auto; padding: clamp(60px, 8vw, 80px) clamp(14px, 4vw, 28px) 60px; }
+  .app{
+    max-width: 720px;
+    margin: 0 auto;
+    padding: clamp(16px, 4vw, 36px) clamp(14px, 4vw, 28px) 60px;
+  }
+
   .app-header{ text-align:center; margin-bottom: clamp(18px, 4vw, 30px); }
-  .app-header h1{ font-size: clamp(2.2rem, 6vw, 3rem); font-weight:800; margin: 0 0 6px; color: var(--primary); text-shadow: 0 0 10px var(--border-soft); }
-  .app-header .subtitle{ margin:0; font-size: clamp(0.9rem, 2.2vw, 1.1rem); font-weight:700; color: var(--text-muted); }
+  .app-header h1{ font-size: clamp(2.2rem, 6vw, 3rem); font-weight:800; margin: 0 0 6px; color: var(--plum); text-shadow: 2px 2px 0px var(--white); }
+  .app-header .subtitle{ margin:0; font-size: clamp(0.9rem, 2.2vw, 1.1rem); font-weight:700; color: var(--plum-soft); }
+  .film-rule{ height:14px; margin: 16px auto 0; max-width: 260px; background-image: radial-gradient(circle, var(--blush) 3px, transparent 3.2px); background-size: 18px 14px; background-repeat: repeat-x; opacity:0.9; }
 
   /* ================= STEPS ================= */
   .steps{ display:flex; justify-content:center; gap: clamp(6px, 2vw, 14px); margin-bottom: clamp(18px, 4vw, 28px); flex-wrap: wrap; }
-  .step{ display:flex; align-items:center; gap:8px; padding: 8px 16px; border-radius: 999px; background: var(--step-bg); border: 1px solid var(--border-soft); font-weight:700; font-size: clamp(0.75rem, 2vw, 0.9rem); color: var(--text-muted); }
-  .step .num{ width:22px; height:22px; border-radius:50%; background: var(--border-soft); display:flex; align-items:center; justify-content:center; font-size:0.8rem; flex-shrink:0; color: var(--text-main); }
-  .step.active{ background: var(--primary); border-color: var(--primary); color: var(--primary-text); transform: scale(1.05); box-shadow: var(--shadow-glow); }
-  .step.active .num{ background: rgba(0,0,0,0.2); color: var(--primary-text); }
-  .step.done{ background: var(--secondary); border-color: var(--secondary); color: var(--secondary-text); }
-  .step.done .num{ background: rgba(0,0,0,0.2); color: var(--secondary-text); }
+  .step{ display:flex; align-items:center; gap:8px; padding: 8px 16px; border-radius: 999px; background: rgba(255,255,255,0.6); border: 2px solid rgba(74,53,80,0.08); font-weight:700; font-size: clamp(0.75rem, 2vw, 0.9rem); color: var(--plum-soft); transition: all .3s cubic-bezier(0.4, 0, 0.2, 1); }
+  .step .num{ width:22px; height:22px; border-radius:50%; background: rgba(74,53,80,0.12); display:flex; align-items:center; justify-content:center; font-size:0.8rem; flex-shrink:0; }
+  .step.active{ background: var(--blush); border-color: var(--blush); color: var(--white); transform: scale(1.05); box-shadow: 0 4px 12px rgba(255,158,181,0.4); }
+  .step.active .num{ background: rgba(255,255,255,0.35); color:var(--white); }
+  .step.done{ background: var(--sage); border-color: var(--sage); color: var(--white); }
+  .step.done .num{ background: rgba(255,255,255,0.4); color:var(--white); }
 
   /* ================= PANELS ================= */
-  .panel{ display:none; background: var(--panel-bg); backdrop-filter: blur(16px); border-radius: 26px; box-shadow: var(--shadow-glow); padding: clamp(20px, 5vw, 36px); position:relative; border: 1px solid var(--panel-border); }
+  .panel{ display:none; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-radius: var(--radius-lg); box-shadow: var(--shadow); padding: clamp(20px, 5vw, 36px); position:relative; border: 1px solid rgba(255,255,255,0.4); }
   .panel.active{ display:block; animation: slideUp .4s cubic-bezier(0.16, 1, 0.3, 1); }
-  @keyframes slideUp{ from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
-  .panel h2{ margin:0 0 8px; font-size: clamp(1.4rem, 3.4vw, 1.8rem); font-weight:800; color: var(--text-main); }
-  .panel .desc{ margin:0 0 24px; font-size:0.95rem; color: var(--text-muted); font-weight:600; line-height:1.6; }
+  @keyframes slideUp{ from{opacity:0; transform:translateY(15px);} to{opacity:1; transform:translateY(0);} }
+  .panel h2{ margin:0 0 8px; font-size: clamp(1.4rem, 3.4vw, 1.8rem); font-weight:800; }
+  .panel .desc{ margin:0 0 24px; font-size:0.95rem; color: var(--plum-soft); font-weight:600; line-height:1.6; }
 
   /* ================= BUTTONS ================= */
-  .btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; border:none; border-radius: 999px; padding: 14px 28px; font-weight:800; font-size: 1rem; cursor:pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+  .btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; border:none; border-radius: 999px; padding: 14px 28px; font-weight:800; font-size: 1rem; cursor:pointer; transition: all .2s ease; box-shadow: var(--shadow-sm); }
   .btn:active:not(:disabled){ transform: translateY(2px) scale(0.97); }
-  .btn:disabled{ opacity:0.4; cursor:not-allowed; box-shadow:none; transform:none; }
-  .btn-primary{ background: var(--primary); color: var(--primary-text); }
-  .btn-primary:hover:not(:disabled){ background: var(--primary-hover); box-shadow: var(--shadow-glow); }
-  .btn-secondary{ background: var(--secondary); color: var(--secondary-text); }
-  .btn-secondary:hover:not(:disabled){ filter: brightness(1.1); }
-  .btn-outline{ background: transparent; color: var(--text-main); border: 2px solid var(--border-soft); box-shadow:none; }
-  .btn-outline:hover:not(:disabled){ background: var(--border-soft); }
-  .btn-ghost{ background: rgba(128,128,128,0.1); color: var(--text-main); box-shadow:none; }
-  .btn-ghost:hover:not(:disabled){ background: rgba(128,128,128,0.2); }
+  .btn:disabled{ opacity:0.5; cursor:not-allowed; box-shadow:none; transform:none; }
+  .btn-primary{ background: var(--blush); color: var(--white); }
+  .btn-primary:hover:not(:disabled){ background: var(--blush-hover); box-shadow: 0 6px 16px rgba(255,158,181,0.4); }
+  .btn-secondary{ background: var(--sage); color: var(--white); }
+  .btn-secondary:hover:not(:disabled){ filter: brightness(1.05); }
+  .btn-outline{ background: transparent; color: var(--plum); border: 2px solid rgba(74,53,80,0.18); box-shadow:none; }
+  .btn-outline:hover:not(:disabled){ background: rgba(74,53,80,0.04); }
+  .btn-gold{ background: var(--gold); color: var(--plum); }
+  .btn-gold:hover:not(:disabled){ background: var(--gold-hover); box-shadow: 0 6px 16px rgba(232,185,92,0.4); }
+  .btn-ghost{ background: rgba(74,53,80,0.06); color: var(--plum); box-shadow:none; }
+  .btn-ghost:hover:not(:disabled){ background: rgba(74,53,80,0.1); }
   .btn-block{ width:100%; }
   .btn-sm{ padding: 10px 18px; font-size:0.85rem; }
   .btn-row{ display:flex; gap:12px; flex-wrap:wrap; margin-top: 24px; }
   .btn-row .btn{ flex:1; min-width:140px; }
 
-  /* ================= UI COMPONENTS ================= */
+  /* ================= STEP 1 & 2 ================= */
   .frame-gallery{ display:grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 16px; margin-bottom: 20px; }
-  .frame-card{ border: 2px solid var(--border-soft); border-radius: 16px; padding: 8px; background: rgba(128,128,128,0.05); cursor:pointer; text-align:center; }
-  .frame-card:hover{ background: rgba(128,128,128,0.1); transform: translateY(-3px); }
-  .frame-card.selected{ border-color: var(--primary); background: var(--border-soft); transform: translateY(-3px); box-shadow: var(--shadow-glow); }
-  .frame-card img{ width:100%; aspect-ratio: 3/4; object-fit: contain; border-radius: 8px; background: repeating-conic-gradient(#888 0% 25%, transparent 0% 50%) 50% / 12px 12px; }
-  .frame-card .frame-name{ display:block; margin-top:10px; font-size:0.85rem; font-weight:800; color: var(--text-main); }
+  .frame-card{ border: 3px solid transparent; border-radius: var(--radius-md); padding: 8px; background: rgba(74,53,80,0.03); cursor:pointer; text-align:center; transition: all .2s ease; }
+  .frame-card:hover{ background: rgba(255,158,181,0.08); transform: translateY(-3px); }
+  .frame-card.selected{ border-color: var(--blush); background: rgba(255,158,181,0.15); transform: translateY(-3px); box-shadow: var(--shadow-sm); }
+  .frame-card img{ width:100%; aspect-ratio: 3/4; object-fit: contain; border-radius: 8px; background: repeating-conic-gradient(#eee 0% 25%, transparent 0% 50%) 50% / 12px 12px; }
+  .frame-card .frame-name{ display:block; margin-top:10px; font-size:0.85rem; font-weight:800; color: var(--plum); }
 
-  .upload-frame-box{ border: 2px dashed var(--border-soft); border-radius: 16px; padding: 24px; text-align:center; background: rgba(128,128,128,0.03); }
-  .upload-frame-box p{ margin:0 0 14px; font-size:0.9rem; font-weight:800; color: var(--text-main); }
-  .upload-frame-box .hint{ font-weight:600; font-size:0.8rem; color: var(--text-muted); margin-top:12px; }
+  .upload-frame-box{ border: 2px dashed rgba(74,53,80,0.25); border-radius: var(--radius-md); padding: 24px; text-align:center; background: rgba(168,203,183,0.05); }
+  .upload-frame-box p{ margin:0 0 14px; font-size:0.9rem; font-weight:800; color: var(--plum); }
+  .upload-frame-box .hint{ font-weight:600; font-size:0.8rem; color: var(--plum-soft); margin-top:12px; opacity:0.9; }
   input[type="file"]{ display:none; }
-  .status-msg{ margin-top:14px; font-size:0.85rem; font-weight:700; padding: 12px 16px; border-radius: 10px; display:none; }
+  .status-msg{ margin-top:14px; font-size:0.85rem; font-weight:700; padding: 12px 16px; border-radius: var(--radius-sm); display:none; }
   .status-msg.show{ display:block; animation: slideUp .3s; }
-  .status-msg.error{ background: rgba(255, 51, 51, 0.15); color: #ff4d4d; border: 1px solid rgba(255, 51, 51, 0.3); }
-  .status-msg.ok{ background: rgba(0, 255, 204, 0.15); color: var(--primary); border: 1px solid rgba(0, 255, 204, 0.3); }
+  .status-msg.error{ background: rgba(255,158,181,0.2); color:#B23A55; border: 1px solid rgba(178,58,85,0.2); }
+  .status-msg.ok{ background: rgba(168,203,183,0.3); color:#2F6B4A; border: 1px solid rgba(47,107,74,0.2); }
 
-  .camera-wrap{ position:relative; width:100%; max-width:880px; margin: 0 auto; aspect-ratio: 4/3; background: #000; border-radius: 16px; overflow:hidden; box-shadow: inset 0 0 0 4px var(--border-soft); }
+  .camera-wrap{ position:relative; width:100%; max-width:440px; margin: 0 auto; aspect-ratio: 4/3; background: var(--plum); border-radius: var(--radius-md); overflow:hidden; box-shadow: inset 0 0 0 4px rgba(255,255,255,0.1); }
   .camera-wrap video{ width:100%; height:100%; object-fit: cover; transform: scaleX(-1); display:block; }
-  .camera-placeholder{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color: #fff; font-weight:700; font-size:1.1rem; text-align:center; padding: 0 20px; }
+  .camera-placeholder{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; color: rgba(255,255,255,0.7); font-weight:700; font-size:0.95rem; text-align:center; padding: 0 20px; }
+  
   .capture-controls{ display:flex; justify-content:center; gap:12px; margin: 20px 0; flex-wrap:wrap; }
   
+  /* Đèn báo đỏ REC */
   .rec-indicator { display: none; align-items: center; gap: 6px; font-weight: 800; color: #ff3333; font-size: 0.9rem; animation: pulse 1s infinite; }
   .rec-indicator.active { display: flex; }
-  .rec-indicator span { width: 10px; height: 10px; background: #ff3333; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px #ff3333; }
+  .rec-indicator span { width: 10px; height: 10px; background: #ff3333; border-radius: 50%; display: inline-block; }
   @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
 
-  .progress-wrap{ max-width:880px; margin: 0 auto 20px; display:flex; flex-direction:column; align-items:center; }
-  .progress-label{ font-size:0.9rem; font-weight:800; color: var(--text-main); margin-bottom:8px; width: 100%; }
-  .progress-bar{ width: 100%; height:8px; border-radius:999px; background: var(--border-soft); overflow:hidden; }
-  .progress-bar-fill{ height:100%; width:0%; background: var(--primary); border-radius:999px; box-shadow: var(--shadow-glow); transition: width .5s cubic-bezier(0.4, 0, 0.2, 1); }
+  .progress-wrap{ max-width:440px; margin: 0 auto 20px; display:flex; flex-direction:column; align-items:center; }
+  .progress-label{ font-size:0.85rem; font-weight:800; color: var(--plum); margin-bottom:8px; text-align:center; width: 100%; }
+  .progress-bar{ width: 100%; height:12px; border-radius:999px; background: rgba(74,53,80,0.08); overflow:hidden; box-shadow: inset 0 1px 3px rgba(0,0,0,0.05); }
+  .progress-bar-fill{ height:100%; width:0%; background: linear-gradient(90deg, var(--blush), var(--gold)); border-radius:999px; transition: width .5s cubic-bezier(0.4, 0, 0.2, 1); }
 
-  .slot-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap: 12px; max-width:880px; margin: 0 auto 8px; }
-  .slot-item{ border-radius: 10px; background: rgba(128,128,128,0.05); border: 2px dashed var(--border-soft); aspect-ratio: 1/1; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
-  .slot-item.filled{ border: 2px solid var(--primary); background: #000; }
+  .slot-grid{ display:grid; grid-template-columns: repeat(4, 1fr); gap: 12px; max-width:440px; margin: 0 auto 8px; }
+  .slot-item{ border-radius: var(--radius-sm); background: rgba(74,53,80,0.04); border: 2px dashed rgba(74,53,80,0.15); aspect-ratio: 1/1; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; transition: border .3s; }
+  .slot-item.filled{ border: 2px solid var(--sage); background:var(--white); }
   .slot-item img{ width:100%; height:100%; object-fit:cover; }
-  .slot-item .slot-num{ position:absolute; top:8px; left:8px; font-size:0.8rem; font-weight:800; color: var(--primary-text); background: var(--primary); border-radius:6px; padding: 2px 8px; }
-  .slot-item .slot-empty-label{ font-size:0.9rem; font-weight:700; color: var(--text-muted); }
-  .slot-actions{ display:flex; gap:10px; justify-content:center; max-width:880px; margin: 0 auto 20px; flex-wrap:wrap; }
-  .slot-actions .btn{ font-size:0.8rem; padding:8px 16px; }
+  .slot-item .slot-num{ position:absolute; top:6px; left:6px; font-size:0.7rem; font-weight:800; color: var(--plum); background: rgba(255,255,255,0.9); border-radius:6px; padding: 2px 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+  .slot-item .slot-empty-label{ font-size:0.75rem; font-weight:700; color: var(--plum-soft); }
+  .slot-actions{ display:flex; gap:8px; justify-content:center; max-width:440px; margin: 0 auto 20px; flex-wrap:wrap; }
+  .slot-actions .btn{ font-size:0.75rem; padding:8px 12px; }
 
-  .result-wrap{ text-align:center; background: repeating-conic-gradient(rgba(128,128,128,0.05) 0% 25%, transparent 0% 50%) 50% / 20px 20px; padding: 30px 20px; border-radius: 16px; border: 1px solid var(--border-soft); margin-bottom: 24px; position: relative; min-height: 400px; display: flex; align-items: center; justify-content: center; }
+  /* ================= STEP 3: RESULT ================= */
+  .result-wrap{ text-align:center; background: repeating-conic-gradient(rgba(74,53,80,0.02) 0% 25%, transparent 0% 50%) 50% / 20px 20px; padding: 30px 20px; border-radius: var(--radius-md); border: 1px dashed rgba(74,53,80,0.15); margin-bottom: 24px; position: relative; min-height: 400px; display: flex; align-items: center; justify-content: center; }
   #resultCanvas { display: none; } 
-  #resultPreview { max-width: 100%; width: 380px; height: auto; border-radius: 8px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); transition: transform 0.3s ease; }
+  #resultPreview { max-width: 100%; width: 320px; height: auto; border-radius: 4px; box-shadow: 0 20px 40px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05); transition: transform 0.3s ease; }
   #resultPreview:hover { transform: scale(1.02); }
 
-  .overlay{ position:fixed; inset:0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); display:flex; align-items:center; justify-content:center; z-index: 999; }
+  /* ================= MODAL XỬ LÝ VIDEO ================= */
+  .processing-modal{ position:fixed; inset:0; background: rgba(255,248,241,0.95); backdrop-filter: blur(8px); display:flex; flex-direction:column; align-items:center; justify-content:center; z-index: 2000; opacity:0; pointer-events:none; transition: opacity .3s ease; }
+  .processing-modal.active{ opacity:1; pointer-events:all; }
+  .processing-modal .spinner { width: 60px; height: 60px; border: 6px solid rgba(255,158,181,0.3); border-top-color: var(--blush); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .processing-modal h3 { font-size: 1.8rem; color: var(--plum); margin:0 0 10px; }
+  .processing-modal p { font-size: 1rem; color: var(--plum-soft); font-weight: 700; margin-bottom: 20px; }
+  .processing-modal .vid-progress-bar { width: 300px; height: 16px; background: rgba(74,53,80,0.1); border-radius: 999px; overflow: hidden; }
+  .processing-modal .vid-progress-fill { height: 100%; width: 0%; background: var(--blush); transition: width 0.2s; }
+  
+  /* ================= OVERLAYS ================= */
+  .overlay{ position:fixed; inset:0; background: rgba(74,53,80,0.85); backdrop-filter: blur(4px); display:flex; align-items:center; justify-content:center; z-index: 999; }
   .overlay.hidden{ display:none; }
-  .countdown-number{ font-family:'Baloo 2', cursive; font-weight:800; font-size: clamp(8rem, 35vw, 15rem); color: var(--primary); text-shadow: 0 0 40px var(--primary); animation: pop .6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+  .countdown-number{ font-family:'Baloo 2', cursive; font-weight:800; font-size: clamp(8rem, 35vw, 15rem); color: var(--white); text-shadow: 0 10px 40px rgba(255,158,181,0.8); animation: pop .6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
   @keyframes pop{ 0%{ transform:scale(0.3); opacity:0; } 50%{ transform:scale(1.1); opacity:1; } 100%{ transform:scale(1); opacity:1; } }
   .flash{ position:fixed; inset:0; background:#fff; z-index: 1000; opacity:0; pointer-events:none; }
   .flash.on{ opacity:1; transition: opacity .05s ease; }
   .flash.hidden{ display:none; }
 
-  .processing-modal{ position:fixed; inset:0; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); display:flex; flex-direction:column; align-items:center; justify-content:center; z-index: 2000; opacity:0; pointer-events:none; }
-  .processing-modal.active{ opacity:1; pointer-events:all; }
-  .processing-modal .spinner { width: 60px; height: 60px; border: 4px solid var(--border-soft); border-top-color: var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .processing-modal h3 { font-size: 1.8rem; color: var(--primary); margin:0 0 10px; text-shadow: var(--shadow-glow); }
-  .processing-modal p { font-size: 1rem; color: var(--text-muted); font-weight: 700; margin-bottom: 20px; }
-  .processing-modal .vid-progress-bar { width: 300px; height: 8px; background: var(--border-soft); border-radius: 999px; overflow: hidden; }
-  .processing-modal .vid-progress-fill { height: 100%; width: 0%; background: var(--primary); box-shadow: var(--shadow-glow); transition: width 0.2s; }
-
   @media (max-width: 480px){
-    .frame-gallery, .slot-grid{ grid-template-columns: repeat(2, 1fr); }
+    .frame-gallery{ grid-template-columns: repeat(2, 1fr); }
+    .slot-grid{ grid-template-columns: repeat(2, 1fr); }
     .btn-row{ flex-direction:column; }
     .btn-row .btn{ width:100%; }
     .step span.label-full{ display:none; }
@@ -216,64 +168,53 @@
   }
 </style>
 </head>
-<!-- Đặt data-theme mặc định là cyberpunk -->
-<body data-theme="cyberpunk">
-
-<!-- TOP TOOLBAR: LANGUAGE & THEME -->
-<div class="top-toolbar">
-  <button class="toolbar-btn" id="btnLang" title="Change Language">🇻🇳 VI</button>
-  <div class="toolbar-divider"></div>
-  <select class="theme-select" id="themeSelect" title="Change Theme">
-    <option value="cyberpunk">🌃 Cyberpunk</option>
-    <option value="lofi">🌸 Lofi Cute</option>
-    <option value="minimal">🖤 Minimal</option>
-  </select>
-</div>
+<body>
 
 <div class="app">
   <div class="app-header">
-    <h1 data-i18n="title">photobooth_studio</h1>
-    <p class="subtitle" data-i18n="subtitle">Màn hình rộng 2X - Quay phim Hậu Trường Siêu Nét</p>
+    <h1>photobooth_studio</h1>
+    <p class="subtitle">Quay Video Hậu Trường Tạo Dáng BTS Siêu Mượt</p>
+    <div class="film-rule"></div>
   </div>
 
   <div class="steps">
-    <div class="step active" data-step="1"><span class="num">1</span><span class="label-full" data-i18n="step1">Chọn khung</span></div>
-    <div class="step" data-step="2"><span class="num">2</span><span class="label-full" data-i18n="step2">Chụp ảnh</span></div>
-    <div class="step" data-step="3"><span class="num">3</span><span class="label-full" data-i18n="step3">Hoàn tất</span></div>
+    <div class="step active" data-step="1"><span class="num">1</span><span class="label-full">Chọn khung</span></div>
+    <div class="step" data-step="2"><span class="num">2</span><span class="label-full">Chụp ảnh</span></div>
+    <div class="step" data-step="3"><span class="num">3</span><span class="label-full">Hoàn tất</span></div>
   </div>
 
   <!-- PANEL 1: KHUNG ẢNH -->
   <section class="panel active" id="panel-frame">
-    <h2 data-i18n="panel1_title">Chọn khung ảnh</h2>
-    <p class="desc" data-i18n="panel1_desc">Chọn khung có sẵn hoặc tải PNG cá nhân. Khung cần có tối thiểu 4 khoảng trống trong suốt để ghép ảnh.</p>
+    <h2>Chọn khung ảnh</h2>
+    <p class="desc">Chọn khung có sẵn hoặc tải PNG cá nhân. Khung cần có tối thiểu 4 khoảng trống trong suốt để ghép ảnh.</p>
     <div class="frame-gallery" id="frameGallery"></div>
     <div class="upload-frame-box">
-      <p data-i18n="upload_text">Hoặc tải khung PNG của bạn lên</p>
-      <button class="btn btn-outline btn-sm" id="btnUploadFrame" data-i18n="upload_btn">Chọn tệp PNG</button>
+      <p>Hoặc tải khung PNG của bạn lên</p>
+      <button class="btn btn-outline btn-sm" id="btnUploadFrame">Chọn tệp PNG</button>
       <input type="file" id="frameFileInput" accept="image/png">
-      <div class="hint" data-i18n="upload_hint">Chỉ chấp nhận tệp .png có nền trong suốt tại các lỗ trống</div>
+      <div class="hint">Chỉ chấp nhận tệp .png có nền trong suốt tại các lỗ trống</div>
     </div>
     <div class="status-msg" id="frameStatus"></div>
     <div class="btn-row">
-      <button class="btn btn-primary btn-block" id="btnToCapture" disabled data-i18n="next_btn">Tiếp tục →</button>
+      <button class="btn btn-primary btn-block" id="btnToCapture" disabled>Tiếp tục →</button>
     </div>
   </section>
 
   <!-- PANEL 2: CHỤP ẢNH -->
   <section class="panel" id="panel-capture">
-    <h2 data-i18n="panel2_title">Chụp ảnh (Màn hình rộng)</h2>
-    <p class="desc" data-i18n="panel2_desc">Quá trình chụp sẽ được tự động ghi hình lại thành Video hậu trường cực chất.</p>
+    <h2>Chụp ảnh</h2>
+    <p class="desc">Quá trình chụp sẽ được tự động ghi hình lại thành Video hậu trường cực chất.</p>
     <div class="camera-wrap" id="cameraWrap">
-      <div class="camera-placeholder" id="cameraPlaceholder" data-i18n="cam_off">Camera chưa bật</div>
+      <div class="camera-placeholder" id="cameraPlaceholder">Camera chưa bật</div>
       <video id="video" autoplay playsinline muted></video>
     </div>
     <div class="capture-controls">
-      <button class="btn btn-secondary" id="btnStartCamera" data-i18n="cam_on_btn">Bật camera</button>
-      <button class="btn btn-primary" id="btnStartCapture" disabled data-i18n="capture_btn">Bắt đầu chụp</button>
+      <button class="btn btn-secondary" id="btnStartCamera">Bật camera</button>
+      <button class="btn btn-primary" id="btnStartCapture" disabled>Bắt đầu chụp</button>
     </div>
     <div class="progress-wrap">
       <div style="display:flex; justify-content: space-between; width:100%; align-items: center; margin-bottom:8px;">
-        <div class="progress-label" id="progressLabel" style="margin-bottom:0; text-align:left;" data-i18n="prog_none">Chưa có ảnh nào</div>
+        <div class="progress-label" id="progressLabel" style="margin-bottom:0; text-align:left;">Chưa có ảnh nào</div>
         <div class="rec-indicator" id="recIndicator"><span></span> REC</div>
       </div>
       <div class="progress-bar"><div class="progress-bar-fill" id="progressFill"></div></div>
@@ -281,38 +222,42 @@
     <div class="slot-grid" id="slotGrid"></div>
     <div class="slot-actions" id="slotActions"></div>
     <div class="btn-row">
-      <button class="btn btn-outline" id="btnBackToFrame" data-i18n="back_btn">← Đổi khung</button>
-      <button class="btn btn-primary" id="btnToResult" disabled data-i18n="result_btn">Tạo tác phẩm →</button>
+      <button class="btn btn-outline" id="btnBackToFrame">← Đổi khung</button>
+      <button class="btn btn-primary" id="btnToResult" disabled>Tạo tác phẩm →</button>
     </div>
   </section>
 
   <!-- PANEL 3: KẾT QUẢ & XUẤT VIDEO -->
   <section class="panel" id="panel-result">
-    <h2 data-i18n="panel3_title">Tác phẩm của bạn!</h2>
-    <p class="desc" data-i18n="panel3_desc">Tải về ảnh tĩnh sắc nét hoặc lưu lại đoạn Video quá trình tạo dáng vừa quay.</p>
+    <h2>Tác phẩm của bạn!</h2>
+    <p class="desc">Tải về ảnh tĩnh sắc nét hoặc lưu lại đoạn Video quá trình tạo dáng vừa quay.</p>
     
     <div class="result-wrap">
       <canvas id="resultCanvas"></canvas>
-      <img id="resultPreview" src="" alt="Result">
+      <img id="resultPreview" src="" alt="Photobooth Result">
     </div>
 
     <div class="btn-row" style="margin-top:0;">
-      <button class="btn btn-primary" id="btnSaveVid" data-i18n="save_vid_btn">🎥 Lưu Video (Quá trình chụp)</button>
-      <button class="btn btn-secondary" id="btnSave" data-i18n="save_img_btn">💾 Lưu Ảnh PNG</button>
+      <button class="btn btn-primary" id="btnSaveVid">🎥 Lưu Video (Quá trình chụp)</button>
+      <button class="btn btn-gold" id="btnSave">💾 Lưu Ảnh PNG</button>
     </div>
     <div class="btn-row" style="margin-top: 12px;">
-      <button class="btn btn-outline btn-block" id="btnRetake" data-i18n="retake_btn">🔄 Chụp lại từ đầu</button>
+      <button class="btn btn-outline btn-block" id="btnRetake">🔄 Chụp lại từ đầu</button>
     </div>
   </section>
 </div>
 
-<!-- OVERLAYS & MODALS -->
-<div class="overlay hidden" id="countdownOverlay"><div class="countdown-number" id="countdownNumber">3</div></div>
+<!-- ============ MODALS & OVERLAYS ============ -->
+<div class="overlay hidden" id="countdownOverlay">
+  <div class="countdown-number" id="countdownNumber">3</div>
+</div>
 <div class="flash hidden" id="flashOverlay"></div>
+
+<!-- Modal Processing Video (Dự phòng cho Offline) -->
 <div class="processing-modal" id="vidProcessModal">
     <div class="spinner"></div>
-    <h3 data-i18n="modal_title">Đang tạo Video mượt mà...</h3>
-    <p id="vidProcessText" data-i18n="modal_desc">Đang chuẩn bị khung hình...</p>
+    <h3>Đang tạo Video mượt mà...</h3>
+    <p id="vidProcessText">Đang chuẩn bị khung hình (bằng thuật toán Native)</p>
     <div class="vid-progress-bar"><div class="vid-progress-fill" id="vidProgressFill"></div></div>
 </div>
 
@@ -322,99 +267,23 @@
 (function(){
   "use strict";
 
-  /* ================= DICTIONARY (HÀN - VIỆT) ================= */
-  const dict = {
-    vi: {
-      title: "photobooth_studio",
-      subtitle: "Màn hình rộng 2X - Quay phim Hậu Trường Siêu Nét",
-      step1: "Chọn khung", step2: "Chụp ảnh", step3: "Hoàn tất",
-      panel1_title: "Chọn khung ảnh", panel1_desc: "Chọn khung có sẵn hoặc tải PNG cá nhân. Khung cần có tối thiểu 4 khoảng trống trong suốt để ghép ảnh.",
-      upload_text: "Hoặc tải khung PNG của bạn lên", upload_btn: "Chọn tệp PNG", upload_hint: "Chỉ chấp nhận tệp .png có nền trong suốt tại các lỗ trống",
-      next_btn: "Tiếp tục →",
-      panel2_title: "Chụp ảnh (Màn hình rộng)", panel2_desc: "Quá trình chụp sẽ được tự động ghi hình lại thành Video hậu trường cực chất.",
-      cam_off: "Camera chưa bật", cam_on_btn: "Bật camera", capture_btn: "Bắt đầu chụp",
-      prog_none: "Chưa có ảnh nào", prog_full: "Đã đủ 4 ảnh",
-      back_btn: "← Đổi khung", result_btn: "Tạo tác phẩm →",
-      panel3_title: "Tác phẩm của bạn!", panel3_desc: "Tải về ảnh tĩnh sắc nét hoặc lưu lại đoạn Video quá trình tạo dáng vừa quay.",
-      save_vid_btn: "🎥 Lưu Video (Quá trình chụp)", save_img_btn: "💾 Lưu Ảnh PNG", retake_btn: "🔄 Chụp lại từ đầu",
-      modal_title: "Đang tạo Video mượt mà...", modal_desc: "Đang chuẩn bị khung hình...",
-      
-      // Dynamic strings
-      err_slots: "Lỗi: Khung này không đủ 4 khoảng trống.",
-      ok_frame: "Đã chọn khung: ",
-      err_png: "Chỉ hỗ trợ tệp PNG.",
-      err_cam: "Lỗi truy cập camera.",
-      slot_empty: "Trống",
-      btn_upload_slot: "Tải ", btn_del_slot: "Xoá ",
-      prog_count: "Đã có {n}/4 ảnh",
-      pose_count: "Đang tạo dáng {n}/4",
-      rest: "Nghỉ giây lát...",
-      done: "Hoàn tất!",
-      render_init: "Khởi tạo mã hoá...",
-      render_frame: "Kết xuất khung hình {i}/{t}"
-    },
-    ko: {
-      title: "포토부스 스튜디오",
-      subtitle: "2X 와이드 스크린 - 고화질 비하인드 씬 녹화",
-      step1: "프레임 선택", step2: "사진 촬영", step3: "완료",
-      panel1_title: "프레임 선택", panel1_desc: "기본 프레임을 선택하거나 투명한 구멍이 4개 이상 있는 개인 PNG를 업로드하세요.",
-      upload_text: "또는 PNG 프레임 업로드", upload_btn: "PNG 선택", upload_hint: "투명한 구멍이 있는 .png 파일만 허용됩니다",
-      next_btn: "다음으로 →",
-      panel2_title: "사진 촬영 (와이드 스크린)", panel2_desc: "촬영 과정이 멋진 비하인드 영상으로 자동 녹화됩니다.",
-      cam_off: "카메라 꺼짐", cam_on_btn: "카메라 켜기", capture_btn: "촬영 시작",
-      prog_none: "사진이 없습니다", prog_full: "4장의 사진 완료",
-      back_btn: "← 프레임 변경", result_btn: "결과 생성 →",
-      panel3_title: "당신의 작품!", panel3_desc: "고화질 사진을 다운로드하거나 방금 녹화된 비하인드 영상을 저장하세요.",
-      save_vid_btn: "🎥 비디오 저장 (비하인드 씬)", save_img_btn: "💾 PNG 저장", retake_btn: "🔄 처음부터 다시 촬영하기",
-      modal_title: "부드러운 영상 생성 중...", modal_desc: "프레임 준비 중...",
-
-      // Dynamic strings
-      err_slots: "오류: 이 프레임에는 4개의 공간이 부족합니다.",
-      ok_frame: "선택된 프레임: ",
-      err_png: "PNG 파일만 지원합니다.",
-      err_cam: "카메라 접근 오류.",
-      slot_empty: "비어 있음",
-      btn_upload_slot: "업로드 ", btn_del_slot: "삭제 ",
-      prog_count: "{n}/4 사진 완료",
-      pose_count: "포즈 취하는 중 {n}/4",
-      rest: "잠시 휴식...",
-      done: "완료!",
-      render_init: "인코딩 초기화 중...",
-      render_frame: "프레임 렌더링 {i}/{t}"
-    }
-  };
-
-  let currentLang = 'vi';
-  function t(key, params = {}) {
-    let str = dict[currentLang][key] || key;
-    for (const [k, v] of Object.entries(params)) { str = str.replace(`{${k}}`, v); }
-    return str;
-  }
-  function updateDOMTexts() {
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (dict[currentLang][key]) { el.innerText = dict[currentLang][key]; }
-    });
-    // Update active dynamic elements if needed
-    if(state.photos) renderSlotGrid();
-  }
-
-  // Language & Theme Toggle Logic
-  $('btnLang').addEventListener('click', (e) => {
-    currentLang = currentLang === 'vi' ? 'ko' : 'vi';
-    e.target.innerText = currentLang === 'vi' ? '🇻🇳 VI' : '🇰🇷 KO';
-    updateDOMTexts();
-  });
-  
-  $('themeSelect').addEventListener('change', (e) => {
-    document.body.setAttribute('data-theme', e.target.value);
-  });
-
   /* ================= STATE ================= */
   const state = {
-    frameImage: null, frameNaturalW: 0, frameNaturalH: 0, slots: [], photos: [null,null,null,null],
-    stream: null, capturing: false, activeSlotForUpload: null, resultDataUrl: null,
-    currentCapturingIndex: -1, videoBlob: null, videoUrl: null, videoExt: 'mp4'
+    frameImage: null,
+    frameNaturalW: 0,
+    frameNaturalH: 0,
+    slots: [], 
+    photos: [null,null,null,null],
+    stream: null,
+    capturing: false,
+    activeSlotForUpload: null,
+    resultDataUrl: null,
+    
+    /* Variables for Real-time Video Recording */
+    currentCapturingIndex: -1,
+    videoBlob: null,
+    videoUrl: null,
+    videoExt: 'mp4'
   };
 
   const $ = (id) => document.getElementById(id);
@@ -437,7 +306,8 @@
     [panelFrame, panelCapture, panelResult].forEach((p,i) => p.classList.toggle('active', i === n-1));
     stepsEls.forEach(el=>{
       const s = parseInt(el.dataset.step,10);
-      el.classList.toggle('active', s === n); el.classList.toggle('done', s < n);
+      el.classList.toggle('active', s === n);
+      el.classList.toggle('done', s < n);
     });
   }
 
@@ -448,7 +318,8 @@
   }
   function makeStripFrame(bgColor, borderColor){
     const W = 700, H = 2000;
-    const canvas = document.createElement('canvas'); canvas.width = W; canvas.height = H; const ctx = canvas.getContext('2d');
+    const canvas = document.createElement('canvas'); canvas.width = W; canvas.height = H;
+    const ctx = canvas.getContext('2d');
     ctx.fillStyle = bgColor; roundedRectPath(ctx, 0,0,W,H,36); ctx.fill();
     const marginX = 44, marginTop = 44, footer = 230, gap = 26;
     const slotW = W - marginX*2; const slotH = (H - marginTop - footer - gap*3) / 4;
@@ -463,7 +334,8 @@
   }
   function makeGridFrame(bgColor, borderColor){
     const W = 1400, H = 1600;
-    const canvas = document.createElement('canvas'); canvas.width = W; canvas.height = H; const ctx = canvas.getContext('2d');
+    const canvas = document.createElement('canvas'); canvas.width = W; canvas.height = H;
+    const ctx = canvas.getContext('2d');
     ctx.fillStyle = bgColor; roundedRectPath(ctx,0,0,W,H,36); ctx.fill();
     const marginX = 50, marginTop = 50, footer = 140, gap = 26;
     const cellW = (W - marginX*2 - gap)/2; const cellH = (H - marginTop - footer - gap)/2;
@@ -477,10 +349,10 @@
     return canvas;
   }
   const builtInFrames = [
-    { name: 'Pink Base',  make: () => makeStripFrame('#FF9EB5', '#4A3550') },
-    { name: 'Mint Base',  make: () => makeStripFrame('#A8CBB7', '#4A3550') },
-    { name: 'Gold Grid',  make: () => makeGridFrame('#E8B95C', '#4A3550') },
-    { name: 'Cream Grid', make: () => makeGridFrame('#FFF8F1', '#FF9EB5') }
+    { name: 'Hồng cổ điển',  make: () => makeStripFrame('#FF9EB5', '#4A3550') },
+    { name: 'Mint dịu nhẹ',  make: () => makeStripFrame('#A8CBB7', '#4A3550') },
+    { name: 'Ô vuông vàng',  make: () => makeGridFrame('#E8B95C', '#4A3550') },
+    { name: 'Ô vuông kem',   make: () => makeGridFrame('#FFF8F1', '#FF9EB5') }
   ];
 
   /* ================= NHẬN DIỆN VÙNG TRONG SUỐT ================= */
@@ -506,16 +378,20 @@
         if(count > areaThreshold){ regions.push({ x:minX, y:minY, w:maxX-minX+1, h:maxY-minY+1, area:count }); }
       }
     }
-    regions.sort((a,b)=>{ const ay=a.y+a.h/2, by=b.y+b.h/2; if(Math.abs(ay-by) > Math.min(a.h,b.h)*0.5) return ay-by; return (a.x+a.w/2)-(b.x+b.w/2); });
+    regions.sort((a,b)=>{
+      const ay=a.y+a.h/2, by=b.y+b.h/2;
+      if(Math.abs(ay-by) > Math.min(a.h,b.h)*0.5) return ay-by;
+      return (a.x+a.w/2)-(b.x+b.w/2);
+    });
     return regions;
   }
 
   function applyFrameImage(img, label){
     const slots = detectSlots(img);
-    if(slots.length < 4){ frameStatus.textContent = t('err_slots'); frameStatus.className = 'status-msg show error'; btnToCapture.disabled = true; return false; }
+    if(slots.length < 4){ frameStatus.textContent = 'Lỗi: Khung này không đủ 4 khoảng trống.'; frameStatus.className = 'status-msg show error'; btnToCapture.disabled = true; return false; }
     state.frameImage = img; state.frameNaturalW = img.naturalWidth || img.width; state.frameNaturalH = img.naturalHeight || img.height;
     state.slots = slots.slice(0,4);
-    frameStatus.textContent = t('ok_frame') + label; frameStatus.className = 'status-msg show ok'; btnToCapture.disabled = false; resetPhotos();
+    frameStatus.textContent = 'Đã chọn khung: ' + label; frameStatus.className = 'status-msg show ok'; btnToCapture.disabled = false; resetPhotos();
     return true;
   }
   
@@ -524,9 +400,10 @@
     builtInFrames.forEach((f)=>{
       const canvas = f.make(); const dataUrl = canvas.toDataURL('image/png');
       const card = document.createElement('div'); card.className = 'frame-card';
-      card.innerHTML = `<img src="${dataUrl}" alt="${f.name}"><span class="frame-name">${f.name}</span>`;
+      card.innerHTML = '<img src="' + dataUrl + '" alt="' + f.name + '"><span class="frame-name">' + f.name + '</span>';
       card.addEventListener('click', ()=>{
-        const img = new Image(); img.onload = ()=>{ if(applyFrameImage(img, f.name)){ document.querySelectorAll('.frame-card').forEach(c=>c.classList.remove('selected')); card.classList.add('selected'); } }; img.src = dataUrl;
+        const img = new Image(); img.onload = ()=>{ if(applyFrameImage(img, f.name)){ document.querySelectorAll('.frame-card').forEach(c=>c.classList.remove('selected')); card.classList.add('selected'); } };
+        img.src = dataUrl;
       });
       frameGallery.appendChild(card);
     });
@@ -535,7 +412,7 @@
   btnUploadFrame.addEventListener('click', ()=> frameFileInput.click());
   frameFileInput.addEventListener('change', (e)=>{
     const file = e.target.files[0]; if(!file) return;
-    if(file.type !== 'image/png'){ frameStatus.textContent=t('err_png'); frameStatus.className='status-msg show error'; return; }
+    if(file.type !== 'image/png'){ frameStatus.textContent='Chỉ hỗ trợ tệp PNG.'; frameStatus.className='status-msg show error'; return; }
     const reader = new FileReader();
     reader.onload = (ev)=>{ const img = new Image(); img.onload = ()=>{ if(applyFrameImage(img, file.name)){ document.querySelectorAll('.frame-card').forEach(c=>c.classList.remove('selected')); } }; img.src = ev.target.result; };
     reader.readAsDataURL(file); frameFileInput.value = '';
@@ -545,82 +422,103 @@
 
   /* ================= CAMERA & UI ================= */
   btnStartCamera.addEventListener('click', async ()=>{
-    try{ 
-      state.stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: 1280, height: 960 }, audio: false }); 
-      video.srcObject = state.stream; cameraPlaceholder.style.display = 'none'; btnStartCamera.disabled = true; btnStartCapture.disabled = false;
-    }catch(err){ cameraPlaceholder.textContent = t('err_cam'); }
+    try{ state.stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: 640, height: 480 }, audio: false }); video.srcObject = state.stream; cameraPlaceholder.style.display = 'none'; btnStartCamera.disabled = true; btnStartCapture.disabled = false;
+    }catch(err){ cameraPlaceholder.textContent = 'Lỗi truy cập camera.'; }
   });
-  function stopCamera(){ if(state.stream){ state.stream.getTracks().forEach(t=>t.stop()); state.stream = null; } video.srcObject = null; cameraPlaceholder.style.display = 'flex'; cameraPlaceholder.textContent = t('cam_off'); btnStartCamera.disabled = false; btnStartCapture.disabled = true; }
+  function stopCamera(){ if(state.stream){ state.stream.getTracks().forEach(t=>t.stop()); state.stream = null; } video.srcObject = null; cameraPlaceholder.style.display = 'flex'; cameraPlaceholder.textContent = 'Camera chưa bật'; btnStartCamera.disabled = false; btnStartCapture.disabled = true; }
   
   function renderSlotGrid(){
     slotGrid.innerHTML = ''; slotActions.innerHTML = '';
     for(let i=0;i<4;i++){
       const item = document.createElement('div'); item.className = 'slot-item' + (state.photos[i] ? ' filled' : '');
-      item.innerHTML = `<span class="slot-num">${i+1}</span>` + (state.photos[i] ? `<img src="${state.photos[i].src}">` : `<span class="slot-empty-label">${t('slot_empty')}</span>`);
+      item.innerHTML = '<span class="slot-num">' + (i+1) + '</span>' + (state.photos[i] ? '<img src="'+state.photos[i].src+'">' : '<span class="slot-empty-label">Trống</span>');
       slotGrid.appendChild(item);
-      
-      const openBtn = document.createElement('button'); openBtn.className = 'btn btn-ghost btn-sm'; openBtn.textContent = t('btn_upload_slot') + (i+1);
+      const openBtn = document.createElement('button'); openBtn.className = 'btn btn-ghost btn-sm'; openBtn.textContent = 'Tải ' + (i+1);
       openBtn.addEventListener('click', ()=>{ state.activeSlotForUpload = i; slotFileInput.click(); }); slotActions.appendChild(openBtn);
-      
-      const delBtn = document.createElement('button'); delBtn.className = 'btn btn-ghost btn-sm'; delBtn.textContent = t('btn_del_slot') + (i+1); delBtn.disabled = !state.photos[i];
+      const delBtn = document.createElement('button'); delBtn.className = 'btn btn-ghost btn-sm'; delBtn.textContent = 'Xoá ' + (i+1); delBtn.disabled = !state.photos[i];
       delBtn.addEventListener('click', ()=>{ state.photos[i] = null; renderSlotGrid(); }); slotActions.appendChild(delBtn);
     }
     const filled = state.photos.filter(Boolean).length;
-    progressFill.style.width = (filled/4*100) + '%'; 
-    progressLabel.textContent = filled === 4 ? t('prog_full') : t('prog_count', {n: filled}); 
-    btnToResult.disabled = filled < 4;
+    progressFill.style.width = (filled/4*100) + '%'; progressLabel.textContent = filled===4 ? 'Đã đủ 4 ảnh' : `Đã có ${filled}/4 ảnh`; btnToResult.disabled = filled < 4;
   }
 
   slotFileInput.addEventListener('change', (e)=>{
     const file = e.target.files[0]; const i = state.activeSlotForUpload; if(!file || i === null) return;
     const reader = new FileReader(); reader.onload = (ev)=>{ const img = new Image(); img.onload = ()=>{ state.photos[i] = img; renderSlotGrid(); }; img.src = ev.target.result; }; reader.readAsDataURL(file); slotFileInput.value = '';
+    // Nếu upload tay thì xoá video cũ
     state.videoBlob = null; state.videoUrl = null;
   });
   function resetPhotos(){ state.photos = [null,null,null,null]; state.videoBlob = null; state.videoUrl = null; }
   function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
   function showCountdownStep(n){ return new Promise(res=>{ countdownNumber.textContent = n; countdownOverlay.classList.remove('hidden'); countdownNumber.style.animation = 'none'; void countdownNumber.offsetWidth; countdownNumber.style.animation = ''; setTimeout(res, 700); }); }
   function doFlash(){ return new Promise(res=>{ flashOverlay.classList.remove('hidden'); requestAnimationFrame(()=>{ flashOverlay.classList.add('on'); setTimeout(()=>{ flashOverlay.classList.remove('on'); setTimeout(()=>{ flashOverlay.classList.add('hidden'); res(); }, 90); }, 120); }); }); }
-  function grabFrameFromVideo(){ const vw = video.videoWidth||1280, vh = video.videoHeight||960; const c = document.createElement('canvas'); c.width = vw; c.height = vh; const ctx = c.getContext('2d'); ctx.translate(vw,0); ctx.scale(-1,1); ctx.drawImage(video,0,0,vw,vh); return c.toDataURL('image/png'); }
+  function grabFrameFromVideo(){ const vw = video.videoWidth||640, vh = video.videoHeight||480; const c = document.createElement('canvas'); c.width = vw; c.height = vh; const ctx = c.getContext('2d'); ctx.translate(vw,0); ctx.scale(-1,1); ctx.drawImage(video,0,0,vw,vh); return c.toDataURL('image/png'); }
 
   /* ================= REAL-TIME BTS RECORDING SYSTEM ================= */
   let recStream, recMediaRecorder, recLoopId;
-  let recCanvas = document.createElement('canvas'); let recCtx = recCanvas.getContext('2d');
-  const REC_W = 352; let REC_H = 0;
+  let recCanvas = document.createElement('canvas');
+  let recCtx = recCanvas.getContext('2d');
+  const REC_W = 352;
+  let REC_H = 0;
 
   function drawCoverScale(ctx, img, x, y, w, h, scale = 1.0, mirror = false){
-    const iw = img.videoWidth || img.naturalWidth || img.width, ih = img.videoHeight || img.naturalHeight || img.height;
+    const iw = img.videoWidth || img.naturalWidth || img.width;
+    const ih = img.videoHeight || img.naturalHeight || img.height;
     if(!iw || !ih) return;
-    const ratio = Math.max(w/iw, h/ih); const dw = iw*ratio*scale, dh = ih*ratio*scale; const dx = x + (w-dw)/2, dy = y + (h-dh)/2;
-    ctx.save(); ctx.beginPath(); ctx.rect(x,y,w,h); ctx.clip(); 
-    if (mirror) { ctx.translate(x + w/2, y + h/2); ctx.scale(-1, 1); ctx.translate(-(x + w/2), -(y + h/2)); }
-    ctx.drawImage(img, dx, dy, dw, dh); ctx.restore();
+    const ratio = Math.max(w/iw, h/ih); 
+    const dw = iw*ratio*scale, dh = ih*ratio*scale;
+    const dx = x + (w-dw)/2, dy = y + (h-dh)/2;
+    ctx.save(); 
+    ctx.beginPath(); ctx.rect(x,y,w,h); ctx.clip(); 
+    if (mirror) {
+        // Lật ngược hình ảnh (Mirror) ngay tại tâm của khung Slot
+        ctx.translate(x + w/2, y + h/2);
+        ctx.scale(-1, 1);
+        ctx.translate(-(x + w/2), -(y + h/2));
+    }
+    ctx.drawImage(img, dx, dy, dw, dh); 
+    ctx.restore();
   }
 
   function startLiveRecording() {
-    REC_H = Math.round(REC_W * (state.frameNaturalH / state.frameNaturalW)); if(REC_H % 2 !== 0) REC_H++;
+    REC_H = Math.round(REC_W * (state.frameNaturalH / state.frameNaturalW));
+    if(REC_H % 2 !== 0) REC_H++;
     recCanvas.width = REC_W; recCanvas.height = REC_H;
-    recCtx.fillStyle = '#111'; recCtx.fillRect(0,0,REC_W,REC_H);
+    
+    recCtx.fillStyle = '#ffffff'; recCtx.fillRect(0,0,REC_W,REC_H);
     recStream = recCanvas.captureStream(30); 
-    let mime = 'video/mp4; codecs="avc1.424028"'; if (!MediaRecorder.isTypeSupported(mime)) mime = 'video/webm; codecs="vp8"';
+    let mime = 'video/mp4; codecs="avc1.424028"';
+    if (!MediaRecorder.isTypeSupported(mime)) mime = 'video/webm; codecs="vp8"';
     
     recMediaRecorder = new MediaRecorder(recStream, { mimeType: mime, videoBitsPerSecond: 2500000 });
-    let chunks = []; recMediaRecorder.ondataavailable = e => { if(e.data.size>0) chunks.push(e.data); };
+    let chunks = [];
+    recMediaRecorder.ondataavailable = e => { if(e.data.size>0) chunks.push(e.data); };
     recMediaRecorder.onstop = () => {
-        const blob = new Blob(chunks, { type: mime }); state.videoBlob = blob; state.videoUrl = URL.createObjectURL(blob); state.videoExt = mime.includes('mp4') ? 'mp4' : 'webm';
+        const blob = new Blob(chunks, { type: mime });
+        state.videoBlob = blob;
+        state.videoUrl = URL.createObjectURL(blob);
+        state.videoExt = mime.includes('mp4') ? 'mp4' : 'webm';
     };
     recMediaRecorder.start();
 
     function drawRecordLoop() {
         if(!recMediaRecorder || recMediaRecorder.state === 'inactive') return;
+        
+        // requestAnimationFrame gọi hàm này 60 lần/giây, nhưng MediaRecorder bắt 30fps rất mượt
         if(recMediaRecorder.state === 'recording') {
             recCtx.clearRect(0,0,REC_W,REC_H);
-            const scaleX = REC_W / state.frameNaturalW, scaleY = REC_H / state.frameNaturalH;
+            const scaleX = REC_W / state.frameNaturalW;
+            const scaleY = REC_H / state.frameNaturalH;
             
             state.slots.forEach((slot, i) => {
                 const tx = slot.x*scaleX, ty = slot.y*scaleY, tw = slot.w*scaleX, th = slot.h*scaleY;
-                if (state.photos[i]) { drawCoverScale(recCtx, state.photos[i], tx, ty, tw, th, 1.0, false); }
-                else if (i === state.currentCapturingIndex && state.stream) { drawCoverScale(recCtx, video, tx, ty, tw, th, 1.0, true); }
-                else { recCtx.fillStyle = '#222'; recCtx.fillRect(tx, ty, tw, th); }
+                if (state.photos[i]) {
+                    drawCoverScale(recCtx, state.photos[i], tx, ty, tw, th, 1.0, false);
+                } else if (i === state.currentCapturingIndex && state.stream) {
+                    drawCoverScale(recCtx, video, tx, ty, tw, th, 1.0, true); // True = lật camera
+                } else {
+                    recCtx.fillStyle = '#f0f0f0'; recCtx.fillRect(tx, ty, tw, th);
+                }
             });
             if(state.frameImage) recCtx.drawImage(state.frameImage, 0, 0, REC_W, REC_H);
         }
@@ -629,34 +527,70 @@
     drawRecordLoop();
   }
 
-  /* ================= BURST RECORD ================= */
+  /* ================= TRÌNH TỰ CHỤP HÌNH BURST RECORD ================= */
   btnStartCapture.addEventListener('click', async ()=>{
-    if(state.capturing) return; state.capturing = true; btnStartCapture.disabled = btnStartCamera.disabled = true;
-    state.videoBlob = null; startLiveRecording(); recMediaRecorder.pause(); 
+    if(state.capturing) return; 
+    state.capturing = true; 
+    btnStartCapture.disabled = btnStartCamera.disabled = true;
+    
+    state.videoBlob = null; 
+    startLiveRecording();
+    recMediaRecorder.pause(); // Ép hệ thống tạm dừng thu ngay để đỡ tốn dung lượng chờ
 
     for(let i=0;i<4;i++){ 
-        state.currentCapturingIndex = i; progressLabel.textContent = t('pose_count', {n: i+1}); 
-        await showCountdownStep(3); await showCountdownStep(2); 
-        if(recMediaRecorder.state === 'paused') { recMediaRecorder.resume(); recIndicator.classList.add('active'); }
-        await showCountdownStep(1); countdownOverlay.classList.add('hidden'); await doFlash(); 
+        state.currentCapturingIndex = i;
+        progressLabel.textContent = `Đang tạo dáng ${i+1}/4`; 
         
-        const dataUrl = grabFrameFromVideo(); const img = new Image(); await new Promise(res=>{ img.onload = res; img.src = dataUrl; }); 
-        state.photos[i] = img; renderSlotGrid();
+        await showCountdownStep(3); 
+        await showCountdownStep(2); 
         
+        // Bắt đầu bật máy quay lén: ghi lại ~30 khung hình (1 giây đếm ngược cuối + Pose)
+        if(recMediaRecorder.state === 'paused') {
+            recMediaRecorder.resume();
+            recIndicator.classList.add('active'); // Bật đèn REC
+        }
+        
+        await showCountdownStep(1); 
+        countdownOverlay.classList.add('hidden'); 
+        await doFlash(); 
+        
+        const dataUrl = grabFrameFromVideo(); 
+        const img = new Image(); 
+        await new Promise(res=>{ img.onload = res; img.src = dataUrl; }); 
+        state.photos[i] = img; 
+        renderSlotGrid();
+        
+        // Nghỉ thêm xíu để máy quay chép nốt khoảnh khắc đứng yên
         await sleep(400); 
-        if(i < 3) { recMediaRecorder.pause(); recIndicator.classList.remove('active'); progressLabel.textContent = t('rest'); await sleep(1500); }
+        
+        // Ngắt máy quay
+        if(i < 3) {
+            recMediaRecorder.pause();
+            recIndicator.classList.remove('active');
+            progressLabel.textContent = 'Nghỉ giây lát...'; 
+            await sleep(1500); 
+        }
     }
     
+    // Ghi thêm 1 giây cuối cùng chiêm ngưỡng 4 ảnh đã đủ
     if(recMediaRecorder.state === 'paused') recMediaRecorder.resume();
-    recIndicator.classList.add('active'); await sleep(1000);
+    recIndicator.classList.add('active');
+    await sleep(1000);
     
-    recMediaRecorder.stop(); cancelAnimationFrame(recLoopId); recIndicator.classList.remove('active');
-    progressLabel.textContent = t('done'); state.capturing = false; btnStartCapture.disabled = false; btnStartCamera.disabled = !!state.stream; 
+    // Đóng máy quay
+    recMediaRecorder.stop();
+    cancelAnimationFrame(recLoopId);
+    recIndicator.classList.remove('active');
+    
+    progressLabel.textContent = 'Hoàn tất!'; 
+    state.capturing = false; 
+    btnStartCapture.disabled = false; 
+    btnStartCamera.disabled = !!state.stream; 
   });
 
   btnBackToFrame.addEventListener('click', ()=>{ stopCamera(); goToStep(1); });
 
-  /* ================= RESULT ================= */
+  /* ================= TẠO ẢNH & VIDEO KẾT QUẢ ================= */
   function compositePNG(){
     const W = state.frameNaturalW, H = state.frameNaturalH;
     resultCanvas.width = W; resultCanvas.height = H; const ctx = resultCanvas.getContext('2d'); ctx.clearRect(0,0,W,H);
@@ -664,13 +598,20 @@
     ctx.drawImage(state.frameImage, 0, 0, W, H);
     state.resultDataUrl = resultCanvas.toDataURL('image/png');
     
+    // Setup vùng xem trước
     const prevParent = resultPreview.parentNode;
     if(state.videoUrl) {
-        const vidEl = document.createElement('video'); vidEl.src = state.videoUrl; vidEl.id = 'resultPreview'; vidEl.autoplay = true; vidEl.loop = true; vidEl.muted = true; vidEl.playsInline = true;
+        // Có video (chụp bằng camera) -> Gắn video lên preview
+        const vidEl = document.createElement('video');
+        vidEl.src = state.videoUrl; vidEl.id = 'resultPreview';
+        vidEl.autoplay = true; vidEl.loop = true; vidEl.muted = true; vidEl.playsInline = true;
         prevParent.replaceChild(vidEl, resultPreview); 
     } else {
+        // Phục hồi thẻ img
         if(resultPreview.tagName === 'VIDEO'){
-            const newImg = document.createElement('img'); newImg.id = 'resultPreview'; prevParent.replaceChild(newImg, resultPreview); newImg.src = state.resultDataUrl;
+            const newImg = document.createElement('img'); newImg.id = 'resultPreview';
+            prevParent.replaceChild(newImg, resultPreview);
+            newImg.src = state.resultDataUrl;
         } else { resultPreview.src = state.resultDataUrl; }
     }
   }
@@ -681,53 +622,86 @@
     const a = document.createElement('a'); a.href = state.resultDataUrl; a.download = 'photobooth_studio_' + Date.now() + '.png'; a.click();
   });
 
+  /* Logic Lưu Video (Phân nhánh Camera Live vs Upload Mượt) */
   btnSaveVid.addEventListener('click', ()=>{
-    if(state.videoBlob) { const a = document.createElement('a'); a.href = state.videoUrl; a.download = 'photobooth_bts.' + state.videoExt; a.click(); } 
-    else { generateSmoothOfflineVideo(); }
+    if(state.videoBlob) {
+        // ĐÃ CÓ BTS VIDEO TỪ CAMERA -> TẢI NGAY
+        const a = document.createElement('a'); a.href = state.videoUrl; a.download = 'photobooth_bts.' + state.videoExt; a.click();
+    } else {
+        // KHÔNG CÓ CAMERA (UPLOAD ẢNH) -> RENDER OFFLINE SIÊU MƯỢT
+        generateSmoothOfflineVideo();
+    }
   });
 
   function generateSmoothOfflineVideo() {
     vidProcessModal.classList.add('active');
-    const targetW = 352; let targetH = Math.round(targetW * (state.frameNaturalH / state.frameNaturalW)); if (targetH % 2 !== 0) targetH++; 
-    const offCanvas = document.createElement('canvas'); offCanvas.width = targetW; offCanvas.height = targetH; const ctx = offCanvas.getContext('2d');
-    const scaleFactorX = targetW / state.frameNaturalW, scaleFactorY = targetH / state.frameNaturalH;
+    
+    const targetW = 352;
+    let targetH = Math.round(targetW * (state.frameNaturalH / state.frameNaturalW));
+    if (targetH % 2 !== 0) targetH++; 
+    
+    const offCanvas = document.createElement('canvas');
+    offCanvas.width = targetW; offCanvas.height = targetH;
+    const ctx = offCanvas.getContext('2d');
+    const scaleFactorX = targetW / state.frameNaturalW;
+    const scaleFactorY = targetH / state.frameNaturalH;
     const targetSlots = state.slots.map(s => ({ x: s.x * scaleFactorX, y: s.y * scaleFactorY, w: s.w * scaleFactorX, h: s.h * scaleFactorY }));
 
-    let mimeType = 'video/mp4; codecs="avc1.424028"'; let ext = 'mp4'; if (!MediaRecorder.isTypeSupported(mimeType)) { mimeType = 'video/webm; codecs="vp8"'; ext = 'webm'; }
+    let mimeType = 'video/mp4; codecs="avc1.424028"'; let ext = 'mp4';
+    if (!MediaRecorder.isTypeSupported(mimeType)) { mimeType = 'video/webm; codecs="vp8"'; ext = 'webm'; }
     
-    vidProcessText.textContent = t('render_init');
-    const stream = offCanvas.captureStream(30); const recorder = new MediaRecorder(stream, { mimeType: mimeType, videoBitsPerSecond: 2500000 });
+    vidProcessText.textContent = `Khởi tạo mã hoá H.264 / ${ext.toUpperCase()}`;
+    const stream = offCanvas.captureStream(30);
+    const recorder = new MediaRecorder(stream, { mimeType: mimeType, videoBitsPerSecond: 2500000 });
     const chunks = []; recorder.ondataavailable = e => { if(e.data.size > 0) chunks.push(e.data); };
-    let finished = false; recorder.onstop = () => { finished = true; }; recorder.start();
+    let finished = false; recorder.onstop = () => { finished = true; };
+    recorder.start();
 
-    const FPS = 30, LOOP_DUR = 3, LOOPS = 3, STATIC_DUR = 1, totalFrames = (LOOP_DUR * LOOPS + STATIC_DUR) * FPS; let frameIdx = 0;
+    const FPS = 30, LOOP_DUR = 3, LOOPS = 3, STATIC_DUR = 1;
+    const totalFrames = (LOOP_DUR * LOOPS + STATIC_DUR) * FPS;
+    let frameIdx = 0;
 
+    // Thay thế vòng lặp for+sleep bằng requestAnimationFrame cho FPS mượt chuẩn Native
     function renderNextOfflineFrame() {
         if(frameIdx > totalFrames) { recorder.stop(); return; }
-        if (frameIdx % 10 === 0) { vidProgressFill.style.width = (frameIdx / totalFrames) * 100 + '%'; vidProcessText.textContent = t('render_frame', {i: frameIdx, t: totalFrames}); }
+        
+        if (frameIdx % 10 === 0) {
+            vidProgressFill.style.width = (frameIdx / totalFrames) * 100 + '%';
+            vidProcessText.textContent = `Kết xuất khung hình ${frameIdx}/${totalFrames}`;
+        }
+        
         ctx.clearRect(0, 0, targetW, targetH);
-        const timeMs = (frameIdx / FPS) * 1000; let zoom = 1.0; if (timeMs < LOOP_DUR * LOOPS * 1000) { const loopTime = timeMs % (LOOP_DUR * 1000); zoom = 1.0 + (loopTime / 3000) * 0.1; }
+        const timeMs = (frameIdx / FPS) * 1000;
+        let zoom = 1.0;
+        if (timeMs < LOOP_DUR * LOOPS * 1000) { const loopTime = timeMs % (LOOP_DUR * 1000); zoom = 1.0 + (loopTime / 3000) * 0.1; }
+
         targetSlots.forEach((slot, i) => { if(state.photos[i]) drawCoverScale(ctx, state.photos[i], slot.x, slot.y, slot.w, slot.h, zoom, false); });
         ctx.drawImage(state.frameImage, 0, 0, targetW, targetH);
-        frameIdx++; requestAnimationFrame(renderNextOfflineFrame);
+        
+        frameIdx++;
+        requestAnimationFrame(renderNextOfflineFrame);
     }
     renderNextOfflineFrame();
+
     const checkFinished = setInterval(() => {
         if(finished) {
             clearInterval(checkFinished);
-            const blob = new Blob(chunks, { type: mimeType }); const url = URL.createObjectURL(blob);
-            const a = document.createElement('a'); a.href = url; a.download = 'photobooth_animated.' + ext; a.click(); vidProcessModal.classList.remove('active');
+            const blob = new Blob(chunks, { type: mimeType });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = url; a.download = 'photobooth_animated.' + ext; a.click();
+            vidProcessModal.classList.remove('active');
         }
     }, 100);
   }
 
   btnRetake.addEventListener('click', ()=>{
-    stopCamera(); resetPhotos(); state.frameImage = null; state.slots = []; state.resultDataUrl = null;
+    stopCamera(); resetPhotos();
+    state.frameImage = null; state.slots = []; state.resultDataUrl = null;
     btnToCapture.disabled = true; frameStatus.className='status-msg'; document.querySelectorAll('.frame-card').forEach(c=>c.classList.remove('selected'));
     goToStep(1);
   });
 
-  renderFrameGallery(); goToStep(1); updateDOMTexts(); // Load default language
+  renderFrameGallery(); goToStep(1);
 })();
 </script>
 </body>
